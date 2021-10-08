@@ -13,7 +13,7 @@ CREATE TABLE `hawmps_db`.`crew` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Create roles table
-CREATE TABLE `hawmps_db`.`role` (
+CREATE TABLE `hawmps_db`.`roles` (
   `id` int NOT NULL AUTO_INCREMENT,
   `role_name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
@@ -28,7 +28,7 @@ CREATE TABLE `hawmps_db`.`crew_roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Add roles data
-INSERT INTO `hawmps_db`.`role` (role_name)
+INSERT INTO `hawmps_db`.`roles` (role_name)
 VALUES
 	('Director'),
 	('Writer'),
