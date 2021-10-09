@@ -12,3 +12,9 @@ export async function createUser(data) {
       })
     return await response.json();
 }
+
+export async function getAllCrew() {
+
+    const response = await fetch('/api/crew');
+    return await response.json();
+}
