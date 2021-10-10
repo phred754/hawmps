@@ -16,7 +16,7 @@ const routes = [
   { path: '/Home', component: Home },
   { path: '/Crew', component: Crew },
   { path: '/DisplayCrew', component: DisplayCrew },
-  { path: '/DisplayCrewMember', component: DisplayCrewMember }
+  { path: '/DisplayCrewMember', name:"DisplayCrewMember", component: DisplayCrewMember, props:true }
 ]
 
 const router = new VueRouter({

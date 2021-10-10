@@ -1,9 +1,9 @@
 <template>
     <div class="displaycrewmember">
-        <h2>Crew</h2>
-        <table class="table table-bordered">
-            <h3>{{crewMember[0].fullName}}</h3>
+        <Navbar />
+        <h3>{{crewMember[0].fullName}}</h3>
             <h4>{{crewMember[0].gender}}</h4>
+        <table class="table table-bordered">
             <thead>
             <tr>
                 <th>Role</th>
@@ -23,13 +23,17 @@
 
 <script>
     import { getCrewData } from '../services/CrewService'
+    import Navbar from './Navbar.vue'
 
     export default {
         name: 'DisplayCrewMember',
-        props: ['ID'],
+        components: {
+            Navbar
+        },
+        props: ["id"], 
         methods: {
             getCrewData() {
-            getCrewData(this.searchCriteria).then(response => {
+            getCrewData(this.id).then(response => {
                 console.log(response)
                 this.crewMember = response
             })

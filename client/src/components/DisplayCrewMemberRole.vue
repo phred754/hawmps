@@ -1,7 +1,7 @@
 <template>
     <div class="displaycrewmember">
-        <h2>Crew</h2>
-        <table class="table table-bordered">
+        <h2>Crew Member</h2>
+        <!-- <table class="table table-bordered">
             <h3>{{crewMember[0].fullName}}</h3>
             <h4>{{crewMember[0].gender}}</h4>
             <thead>
@@ -16,7 +16,7 @@
                   <td>{{ item.gender }}</td>
               </tr>
             </tbody>
-        </table>
+        </table> -->
     </div>
 </template>
 
@@ -24,8 +24,7 @@
     import { getCrewData } from '../services/CrewService'
 
     export default {
-        name: 'DisplayCrewMember',
-        props: ['ID'],
+        name: 'DisplayCrewMemberRole',
         methods: {
             getCrewData() {
             getCrewData(this.searchCriteria).then(response => {

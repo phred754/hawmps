@@ -12,7 +12,7 @@
             </thead>
             <tbody>
               <tr v-for="item in crew" :key="item.id">
-                  <td>{{ item.id }}</td>
+                  <td><router-link :to="{ name: 'DisplayCrewMember', params:{id: item.id}}">{{ item.id }}</router-link></td>
                   <td>{{ item.fullName }}</td>
                   <td>{{ item.gender }}</td>
               </tr>
@@ -39,10 +39,6 @@
                 console.log(response)
                 this.crew = response
             })
-            },
-            storeID(id){
-                this.crewID = id
-                console.log(this.crewID)
             }
         },
         mounted () {
