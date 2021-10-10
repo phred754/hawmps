@@ -30,22 +30,22 @@
         components: {
             Navbar
         },
-        props: ["id"], 
-        methods: {
-            getCrewData() {
-            getCrewData(this.id).then(response => {
-                console.log(response)
-                this.crewMember = response
-            })
-            }
-        },
-        mounted () {
-            this.getCrewData();
-        },
         data() {
             return {
                 crewMember: []
             }
+        },
+        props: ["id"], 
+        methods: {
+            getCrewData() {
+                getCrewData(this.id).then(response => {
+                    console.log(response)
+                    this.crewMember = response
+                })
+            }
+        },
+        mounted () {
+            this.getCrewData();
         }
      }
 </script>

@@ -58,8 +58,23 @@ app.get('/api/member', (req, res) => {
 
 //authenticate user
 app.get('/api/auth', (req, res) => {
-  console.log('api/auth called!!!!!!!')
-  res.json("authorized");
+  var username = req.get('username');
+  var pass = req.get('pass');
+
+  var sql = ` SELECT 
+                pass_hash AS hash
+              FROM users
+              WHERE username = ${mysql.escape(username)};`;
+  
+  pool.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log(result);
+
+    bcrypt.compare(pass, result[0].hash, function(err, result) {
+      console.log(result);
+      res.json(result);
+    });
+  });
 });
 
 //create user
@@ -80,7 +95,6 @@ app.post('/api/user', (req, res) => {
         }
       }
       else{
-        console.log(`User ${username} added!`);
         res.json(`User ${username} added!`);
       }
     });

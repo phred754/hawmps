@@ -35,10 +35,10 @@
         },
         methods: {
             getAllCrew() {
-            getAllCrew(this.searchCriteria).then(response => {
-                console.log(response)
-                this.crew = response
-            })
+                getAllCrew(this.searchCriteria).then(response => {
+                    console.log(response)
+                    this.crew = response
+                })
             }
         },
         mounted () {

@@ -2,9 +2,9 @@
     <div class="home">
         <h1>Welcome to Hawmps!</h1>
         <h2>The internet's premier site for information on the moderately successful motion picture!</h2>
-        <input type="text" v-model="user.email">
-        <input type="text" v-model="user.pass">
-        <button type="button" @click='login()' class="btn btn-danger">Login</button>
+        <input type="text" v-model="username">
+        <input type="text" v-model="pass">
+        <button type="button" @click='authenticateUser()' class="btn btn-danger">Login</button>
         <router-link :to="{ name: 'CreateUser'}" class="nav-link">Create New User <span class="sr-only">(current)</span></router-link>
     </div>
 </template>
@@ -16,22 +16,32 @@
         name: 'Home',
         data() {
                 return {
-                    user: {
-                        email: '',
-                        pass: ''
-                    }
+                    username: '',
+                    pass: '',
+                    authResponse: '',
+                    authorizedUser: false
                 }
             },
         methods: {
-            login() {
-                authenticateUser()
-                this.$router.push('crew')
-            },
             authenticateUser() {
-                authenticateUser(this.user).then(response => {
-                    console.log(response)
-                    this.crew = response
+                const payload = {
+                    username: this.username,
+                    pass: this.pass,
+                }
+                authenticateUser(payload).then(response => {
+                    this.authorizedUser = response;
+                    if(response){
+                        this.$router.push('crew');
+                    }
+                    else{
+                        alert("Invalid login credentials");
+                    }
                 })
+                this.clearForm();
+            },
+            clearForm() {
+            this.username = "";
+            this.pass = "";
             }
         }
     }
