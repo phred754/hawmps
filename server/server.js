@@ -24,13 +24,7 @@ var pool = mysql.createPool({
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-// app.get('/api/users', (req, res) => {
-//   console.log('api/users called!!!!!!!')
-//   res.json(users);
-// });
-
 app.get('/api/crew', (req, res) => {
-  console.log('test');
     var sql = ` SELECT 
                   id, 
                   coalesce(full_name, first_name) AS fullName, 
@@ -62,9 +56,10 @@ app.get('/api/member', (req, res) => {
   });
 });
 
-app.get('/api/test', (req, res) => {
-    console.log('api/test called!!!!!!!');
-    es.json("test");
+//Auth functions
+app.get('/api/auth', (req, res) => {
+  console.log('api/auth called!!!!!!!')
+  res.json("authorized");
 });
 
 app.get('/', (req,res) => {
