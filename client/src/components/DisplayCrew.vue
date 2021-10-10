@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="displaycrew">
         <h2>Crew</h2>
         <table class="table table-bordered">
             <thead>
@@ -28,7 +28,7 @@
         props: ['searchCriteria'],
         methods: {
             getAllCrew() {
-            getAllCrew().then(response => {
+            getAllCrew(this.searchCriteria).then(response => {
                 console.log(response)
                 this.crew = response
                 this.numberOfcrew= this.crew.length

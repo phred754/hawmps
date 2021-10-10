@@ -38,18 +38,21 @@ app.get('/api/users', (req, res) => {
 // });
 
 app.get('/api/crew', (req, res) => {
-    pool.query("SELECT id, coalesce(full_name, first_name) AS fullName, gender FROM crew", function (err, result) {
+    var sql = ` SELECT 
+                  id, 
+                  coalesce(full_name, first_name) AS fullName, 
+                  gender 
+                FROM crew
+                WHERE full_name LIKE ${mysql.escape('%' + req.query.searchCriteria + '%')} 
+                LIMIT 1000;`;
+    console.log(sql);
+    
+    pool.query(sql, function (err, result) {
       if (err) throw err;
       console.log(result);
       res.json(result);
     });
 });
-
-// exports.Pool = pool;
-
-// app.get('/', (req,res) => {
-//   res.sendFile(path.join(__dirname, '../client/build/index.html'));
-// });
 
 app.listen(port, () => {
     console.log(`Server listening on the port::${port}`);

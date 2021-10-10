@@ -5,14 +5,16 @@ import { BootstrapVue } from 'bootstrap-vue'
 
 import Home from './components/Home'
 import Crew from './components/Crew'
+import DisplayCrew from './components/DisplayCrew'
 
 // import passport from 'passport'
 
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/home', component: Home },
-  { path: '/crew', component: Crew }
+  { path: '/Home', component: Home },
+  { path: '/Crew', component: Crew },
+  { path: '/DisplayCrew', component: DisplayCrew }
 ]
 
 const router = new VueRouter({

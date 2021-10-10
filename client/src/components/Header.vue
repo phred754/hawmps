@@ -1,6 +1,5 @@
 <template>
     <div class="header">
-        
         <h1>Hawmps!</h1>
         <button type="button" @click='login()' class="btn btn-danger">Login</button>
     </div>
