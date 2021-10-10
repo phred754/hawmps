@@ -6,6 +6,7 @@ import { BootstrapVue } from 'bootstrap-vue'
 import Home from './components/Home'
 import Crew from './components/Crew'
 import DisplayCrew from './components/DisplayCrew'
+import DisplayCrewMember from './components/DisplayCrewMember'
 
 // import passport from 'passport'
 
@@ -14,7 +15,8 @@ Vue.use(VueRouter)
 const routes = [
   { path: '/Home', component: Home },
   { path: '/Crew', component: Crew },
-  { path: '/DisplayCrew', component: DisplayCrew }
+  { path: '/DisplayCrew', component: DisplayCrew },
+  { path: '/DisplayCrewMember', component: DisplayCrewMember }
 ]
 
 const router = new VueRouter({

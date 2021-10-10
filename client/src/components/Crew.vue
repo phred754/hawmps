@@ -1,13 +1,12 @@
 <template>
     <div class="crew">
         <Navbar />
-        <h1>Crew Search</h1>
+        <h1>Crew</h1>
         <form>
-            <input type="text" v-model="searchCriteria" v-if="!showCrew">
-            <button type="button" @click='search()' class="btn btn-danger" v-if="!showCrew">Search</button>
-            <button type="button" @click='resetSearch()' class="btn btn-danger" v-if="showCrew">Search Again</button>
+            <input type="text" v-model="searchCriteria">
+            <button type="button" @click='search()' class="btn btn-danger">Search</button>
         </form>
-        <DisplayCrew v-bind:searchCriteria="searchCriteria" v-if="showCrew"/>
+        <DisplayCrew v-bind:searchCriteria="searchCriteria" v-if="showCrew" :key="componentKey"/>
     </div>
 </template>
 
@@ -24,15 +23,17 @@
         data(){
             return {
                 searchCriteria: '',
-                showCrew: false
+                showCrew: false,
+                componentKey: 0
             }
         },
         methods: {
             search() {
                 this.showCrew = true
+                this.forceRerender()
             },
-            resetSearch() {
-                this.showCrew = false
+            forceRerender(){
+                this.componentKey += 1;
             }
         }
     }

@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const path = require('path');
-const randomId = require('random-id');
+//const randomId = require('random-id');
 const app = express(),
       bodyParser = require("body-parser");
       port = 3080;
@@ -19,22 +19,14 @@ var pool = mysql.createPool({
 
 // place holder for the data
 // const users = [];
-const crew = [];
+// const crew = [];
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-app.get('/api/users', (req, res) => {
-  console.log('api/users called!!!!!!!')
-  res.json(users);
-});
-
-// app.post('/api/user', (req, res) => {
-//   const user = req.body.user;
-//   user.id = randomId(10);
-//   console.log('Adding user:::::', user);
-//   users.push(user);
-//   res.json("user addedd");
+// app.get('/api/users', (req, res) => {
+//   console.log('api/users called!!!!!!!')
+//   res.json(users);
 // });
 
 app.get('/api/crew', (req, res) => {
@@ -45,13 +37,28 @@ app.get('/api/crew', (req, res) => {
                 FROM crew
                 WHERE full_name LIKE ${mysql.escape('%' + req.query.searchCriteria + '%')} 
                 LIMIT 1000;`;
-    console.log(sql);
-    
+
     pool.query(sql, function (err, result) {
       if (err) throw err;
-      console.log(result);
       res.json(result);
     });
+});
+
+app.get('/api/member', (req, res) => {
+  var sql = ` SELECT 
+                COALESCE (full_name, first_name) AS fullName,
+                r.role_name AS role,
+                cr.role_data AS roleInfo
+              FROM crew c 
+                JOIN crew_roles cr on c.id = cr.crew_id 
+                JOIN roles r on r.id = cr.role_id 
+              WHERE c.id = ${mysql.escape(req.query.id)};`;
+  
+  pool.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log(result);
+    res.json(result);
+  });
 });
 
 app.listen(port, () => {
