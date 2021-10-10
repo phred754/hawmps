@@ -30,6 +30,7 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 // });
 
 app.get('/api/crew', (req, res) => {
+  console.log('test');
     var sql = ` SELECT 
                   id, 
                   coalesce(full_name, first_name) AS fullName, 
