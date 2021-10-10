@@ -5,6 +5,6 @@ export async function getAllCrew(searchCriteria) {
 }
 
 export async function getCrewData(id) {
-    const response = await fetch('/api/crew/?id=' + encodeURIComponent(id));
+    const response = await fetch('/api/member/?id=' + encodeURIComponent(id));
     return await response.json();
 }

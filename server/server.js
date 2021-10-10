@@ -18,8 +18,8 @@ var pool = mysql.createPool({
 });
 
 // place holder for the data
-// const users = [];
-// const crew = [];
+ const users = [];
+ const crew = [];
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../client/dist')));
@@ -59,6 +59,15 @@ app.get('/api/member', (req, res) => {
     console.log(result);
     res.json(result);
   });
+});
+
+app.get('/api/test', (req, res) => {
+    console.log('api/test called!!!!!!!');
+    es.json("test");
+});
+
+app.get('/', (req,res) => {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
 app.listen(port, () => {

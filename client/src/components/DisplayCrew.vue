@@ -12,7 +12,7 @@
             </thead>
             <tbody>
               <tr v-for="item in crew" :key="item.id">
-                  <td><a href="#" @click="storeID">{{ item.id }}</a></td>
+                  <td>{{ item.id }}</td>
                   <td>{{ item.fullName }}</td>
                   <td>{{ item.gender }}</td>
               </tr>

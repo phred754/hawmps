@@ -13,7 +13,6 @@
             <tbody>
               <tr v-for="item in crewMember" :key="item.id">
                   <td>{{ item.role }}</td>
-                  <td>{{ item.roleInfo }}</td>
                   <td>{{ item.gender }}</td>
               </tr>
             </tbody>
@@ -26,7 +25,7 @@
 
     export default {
         name: 'DisplayCrewMember',
-        props: ['crewID'],
+        props: ['ID'],
         methods: {
             getCrewData() {
             getCrewData(this.searchCriteria).then(response => {
