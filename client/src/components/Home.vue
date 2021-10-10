@@ -5,6 +5,7 @@
         <input type="text" v-model="user.email">
         <input type="text" v-model="user.pass">
         <button type="button" @click='login()' class="btn btn-danger">Login</button>
+        <router-link :to="{ name: 'CreateUser'}" class="nav-link">Create New User <span class="sr-only">(current)</span></router-link>
     </div>
 </template>
 

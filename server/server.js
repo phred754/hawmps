@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const path = require('path');
-//const randomId = require('random-id');
+const bcrypt = require('bcrypt');
 const app = express(),
       bodyParser = require("body-parser");
       port = 3080;
@@ -17,9 +17,9 @@ var pool = mysql.createPool({
   database: process.env.DB
 });
 
-// place holder for the data
- const users = [];
- const crew = [];
+// // place holder for the data
+//  const users = [];
+//  const crew = [];
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../client/dist')));
@@ -56,10 +56,35 @@ app.get('/api/member', (req, res) => {
   });
 });
 
-//Auth functions
+//authenticate user
 app.get('/api/auth', (req, res) => {
   console.log('api/auth called!!!!!!!')
   res.json("authorized");
+});
+
+//create user
+app.post('/api/user', (req, res) => {
+  var username = req.get('username');
+  var pass = req.get('pass');
+  var saltRounds = 10;
+
+  bcrypt.hash(pass, saltRounds, function(err, hash) {
+    var sql = ` INSERT INTO users (username, pass_hash) 
+                VALUES (${mysql.escape(username)}, ${mysql.escape(hash)})`;
+  
+  pool.query(sql, function (err, result) {
+      if (err) {
+        console.log(err);
+        if(err.sqlMessage.startsWith('Duplicate entry')){
+          res.json(`Error: User ${username} already exists!`);
+        }
+      }
+      else{
+        console.log(`User ${username} added!`);
+        res.json(`User ${username} added!`);
+      }
+    });
+  });
 });
 
 app.get('/', (req,res) => {

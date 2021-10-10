@@ -1,6 +1,19 @@
 -- Create database for project
 CREATE DATABASE `hawmps_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
+-- Create users table
+CREATE TABLE hawmps_db.users (
+	id BIGINT UNSIGNED auto_increment NOT NULL,
+	username varchar(100) NOT NULL,
+	pass_hash varchar(60) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_user` (`username`)
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci;
+
+
 -- Create crew table
 CREATE TABLE `hawmps_db`.`crew` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,

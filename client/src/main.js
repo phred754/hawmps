@@ -7,15 +7,17 @@ import Home from './components/Home'
 import Crew from './components/Crew'
 import DisplayCrew from './components/DisplayCrew'
 import DisplayCrewMember from './components/DisplayCrewMember'
+import CreateUser from './components/CreateUser'
 
 // import passport from 'passport'
 
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/Home', component: Home },
-  { path: '/Crew', component: Crew },
-  { path: '/DisplayCrew', component: DisplayCrew },
+  { path: '/Home', name:"Home", component: Home },
+  { path: '/Crew', name:"Crew", component: Crew },
+  { path: '/CreateUser', name:"CreateUser", component: CreateUser },
+  { path: '/DisplayCrew', name:"DisplayCrew", component: DisplayCrew },
   { path: '/DisplayCrewMember', name:"DisplayCrewMember", component: DisplayCrewMember, props:true }
 ]
 
