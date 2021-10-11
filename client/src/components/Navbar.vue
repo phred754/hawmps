@@ -1,30 +1,22 @@
 <template>
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Hawmps!</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
             <li class="nav-item active">
-                <router-link :to="{ name: 'Home'}" class="nav-link">Home <span class="sr-only">(current)</span></router-link>
+                <router-link :to="{ name: 'Home'}" class="nav-link">Hawmps!<span class="sr-only">(current)</span></router-link>
             </li>
             <li class="nav-item">
-                <router-link :to="{ name: 'Crew'}" class="nav-link">Crew <span class="sr-only">(current)</span></router-link>
+                <router-link :to="{ name: 'Crew'}" class="nav-link">Crew<span class="sr-only">(current)</span></router-link>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
+                <router-link :to="{ name: 'Trailer'}" class="nav-link">Trailer<span class="sr-only">(current)</span></router-link>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown link
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-                </div>
+            <li class="nav-item">
+                <router-link :to="{ name: 'About'}" class="nav-link">About<span class="sr-only">(current)</span></router-link>
+            </li>
+            <li class="nav-item ">
+                <button type="button" @click='logout()' class="btn btn-light">Logout</button>
             </li>
             </ul>
         </div>
@@ -33,9 +25,20 @@
 </template>
 
 <script>
+    import { logout } from '../services/UserService'
 
     export default {
-            name: 'Navbar'
+        name: 'Navbar',
+        methods: {
+            logout() {
+                this.$router.push('home');
+                console.log("Logged out")
+                logout().then(response => {
+                    console.log(response)
+                    this.crew = response
+                })
+            }
         }
+    }    
     
 </script>

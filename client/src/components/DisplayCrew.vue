@@ -1,7 +1,6 @@
 <template>
     <div class="displaycrew">
         <router-view />
-        <h2>Crew</h2>
         <table class="table table-bordered">
             <thead>
             <tr>
