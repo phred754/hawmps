@@ -47,10 +47,15 @@
                 }]
             }
         },
+        created() {
+            if(this.$jwt==null){
+                this.$router.push('home');
+            }
+        },
         props: ["id"], 
         methods: {
             getCrewData() {
-                getCrewData(this.id).then(response => {
+                getCrewData(this.id, this.$jwt).then(response => {
                     this.crewMember = response
                 })
             }
