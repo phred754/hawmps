@@ -32,9 +32,14 @@
                 crewID: 0
             }
         },
+        created() {
+            if(this.$jwt==null){
+                this.$router.push('home');
+            }
+        },
         methods: {
             getAllCrew() {
-                getAllCrew(this.searchCriteria).then(response => {
+                getAllCrew(this.searchCriteria, this.$jwt).then(response => {
                     console.log(response)
                     this.crew = response
                 })

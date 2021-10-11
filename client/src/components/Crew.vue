@@ -32,8 +32,14 @@
                 componentKey: 0
             }
         },
+        created() {
+            if(this.$jwt==null){
+                this.$router.push('home');
+            }
+        },
         methods: {
             search() {
+                console.log(this.$jwt)
                 this.showCrew = true
                 this.forceRerender()
             },

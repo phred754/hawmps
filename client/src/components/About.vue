@@ -25,6 +25,11 @@
         components: {
             Navbar,
             Footer
+        },
+        created() {
+            if(this.$jwt==null){
+                this.$router.push('home');
+            }
         }
      }
 </script>

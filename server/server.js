@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const bcrypt = require('bcrypt');
+const jwt = require('njwt');
 const app = express(),
       bodyParser = require("body-parser");
       port = 3080;
@@ -20,8 +21,29 @@ var pool = mysql.createPool({
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-//get id, name and gender of all crew members
+// //verify passed in jwt
+// function verifyJWT(token) { 
+//   return jwt.verify(token, process.env.JWT_KEY);
+// };
+
+//verify passed in jwt
+function verifyJWT(token) { 
+  var parts = token.split(' ');
+  if (parts.length === 2) {
+    var scheme = parts[0];
+    var credentials = parts[1];
+    if (scheme == 'Bearer') {
+      token = credentials;
+      return jwt.verify(token, process.env.JWT_KEY);
+    }  
+  }
+};
+
+//search for crew member based on name
 app.get('/api/crew', (req, res) => {
+  const token = req.get('Authorization');
+  var validJWT = verifyJWT(token);
+  if(validJWT){
     var sql = ` SELECT 
                   id, 
                   coalesce(full_name, first_name) AS fullName, 
@@ -34,28 +56,39 @@ app.get('/api/crew', (req, res) => {
       if (err) throw err;
       res.json(result);
     });
+  }
+  else {
+    res.json("Unauthorized");
+  }
 });
 
 //get crew member data
 app.get('/api/member', (req, res) => {
-  var sql = ` SELECT 
-                COALESCE (full_name, first_name) AS fullName,
-                r.role_name AS role,
-                c.gender,
-                JSON_UNQUOTE(JSON_EXTRACT(cr.role_data, '$.Aka')) AS aka,
-                JSON_UNQUOTE(JSON_EXTRACT(cr.role_data, '$.CharacterName')) AS characterName,
-                JSON_UNQUOTE(JSON_EXTRACT(cr.role_data, '$.RoleInfo')) AS roleInfo,
-                JSON_UNQUOTE(COALESCE (JSON_EXTRACT(cr.role_data, '$.Credited'), 'true')) AS credited
-              FROM crew c 
-                JOIN crew_roles cr on c.id = cr.crew_id 
-                JOIN roles r on r.id = cr.role_id 
-              WHERE c.id = ${mysql.escape(req.query.id)};`;
-  
-  pool.query(sql, function (err, result) {
-    if (err) throw err;
-    console.log(result);
-    res.json(result);
-  });
+  const token = req.get('Authorization');
+  var validJWT = verifyJWT(token);
+  if(validJWT){
+    var sql = ` SELECT 
+                  COALESCE (full_name, first_name) AS fullName,
+                  r.role_name AS role,
+                  c.gender,
+                  JSON_UNQUOTE(JSON_EXTRACT(cr.role_data, '$.Aka')) AS aka,
+                  JSON_UNQUOTE(JSON_EXTRACT(cr.role_data, '$.CharacterName')) AS characterName,
+                  JSON_UNQUOTE(JSON_EXTRACT(cr.role_data, '$.RoleInfo')) AS roleInfo,
+                  JSON_UNQUOTE(COALESCE (JSON_EXTRACT(cr.role_data, '$.Credited'), 'true')) AS credited
+                FROM crew c 
+                  JOIN crew_roles cr on c.id = cr.crew_id 
+                  JOIN roles r on r.id = cr.role_id 
+                WHERE c.id = ${mysql.escape(req.query.id)};`;
+
+    pool.query(sql, function (err, result) {
+      if (err) throw err;
+      console.log(result);
+      res.json(result);
+    });
+  }
+  else {
+    res.json("Unauthorized");
+  }
 });
 
 //authenticate user
@@ -77,8 +110,18 @@ app.get('/api/auth', (req, res) => {
       console.log(result);
 
       bcrypt.compare(pass, result[0].hash, function(err, result) {
-        console.log(result);
-        res.json(result);
+        if(result){
+          const jwt = require('njwt')
+          const claims = { iss: 'Hawmp!', username: username }
+          const token = jwt.create(claims, process.env.JWT_KEY)
+          token.setExpiration(new Date().getTime() + 60*10000)
+          console.log(token.compact())
+          res.json(token.compact())
+        }
+        else{
+          console.log(result);
+          res.json(null);
+        }
       });
     });
   }

@@ -26,7 +26,7 @@
                     <button type="button" @click='createUser()' class="btn btn-danger">Create</button>
                 </form>
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6" style="margin-top:10px">
                 <input v-model="addUserResponse" hidden="true">
                 <p>{{ addUserResponse }}</p>
             </div>
@@ -76,6 +76,10 @@
                 }
                 createUser(payload).then(response => {
                     this.addUserResponse = response;
+                    if(response.startsWith("User ")){
+                        alert(response);
+                        this.$router.push('home');
+                    }
                 })
                 this.clearForm();
             }

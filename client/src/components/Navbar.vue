@@ -25,18 +25,12 @@
 </template>
 
 <script>
-    import { logout } from '../services/UserService'
-
     export default {
         name: 'Navbar',
         methods: {
             logout() {
-                this.$router.push('home');
-                console.log("Logged out")
-                logout().then(response => {
-                    console.log(response)
-                    this.crew = response
-                })
+                this.$jwt = null;
+                this.$router.go('home');
             }
         }
     }    
