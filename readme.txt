@@ -9,6 +9,9 @@ You will also need the .env file added to the server directory. This file is not
 
 The app is a vue.js front end with a node.js backend, I used the most up to date versions of these (as of 10/09/2021) installed through npm install on Linux.
 
+The frontend is setup to run from localhost:8080
+The backend is setup to listen for requests on localhost:3080
+
 Components -
 Home: 
     This is the landing page and also contains the login section.  You can log into the app here.  
