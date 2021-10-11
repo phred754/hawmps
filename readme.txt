@@ -5,6 +5,11 @@ In the repo you will find create_db.sql which contains all scripts to create a M
 This should also work for MySQL 5.7 if you remove "COLLATE=utf8mb4_0900_ai_ci" from the scripts as this was not supported until 8.0.
 The JSON datatype was also not available until version 5.7.8 so any 5.7 version before this will not work with the JSON type in the db.
 
+The MySQL db will need to be setup with these values for the app to connect.
+DB_HOST='localhost'
+DB_USER='local'
+DB_PASS='dbtester'
+
 You will also need the .env file added to the server directory. This file is not in the git repo for security. I will include this file via email.
 
 The app is a vue.js front end with a node.js backend, I used the most up to date versions of these (as of 10/09/2021) installed through npm install on Linux.
