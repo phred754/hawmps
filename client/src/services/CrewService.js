@@ -1,6 +1,5 @@
 
 export async function getAllCrew(searchCriteria, jwt) {
-    //const response = await fetch('/api/crew/?searchCriteria=' + encodeURIComponent(searchCriteria));
     const response = await fetch('/api/crew/?searchCriteria=' + encodeURIComponent(searchCriteria),{
         method: "GET",
         headers: {
