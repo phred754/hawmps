@@ -21,11 +21,6 @@ var pool = mysql.createPool({
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-// //verify passed in jwt
-// function verifyJWT(token) { 
-//   return jwt.verify(token, process.env.JWT_KEY);
-// };
-
 //verify passed in jwt
 function verifyJWT(token) { 
   var parts = token.split(' ');
@@ -114,6 +109,7 @@ app.get('/api/auth', (req, res) => {
           const jwt = require('njwt')
           const claims = { iss: 'Hawmp!', username: username }
           const token = jwt.create(claims, process.env.JWT_KEY)
+          //Set jwt expiration to 20 min
           token.setExpiration(new Date().getTime() + 60*10000)
           console.log(token.compact())
           res.json(token.compact())
