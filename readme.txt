@@ -1,6 +1,6 @@
 Readme for Hawmps! Project by Todd Clark
-
 public github repo: https://github.com/phred754/hawmps
+
 In the repo you will find create_db.sql which contains all scripts to create a MySQL 8.0 project for the project.
 This should also work for MySQL 5.7 if you remove "COLLATE=utf8mb4_0900_ai_ci" from the scripts as this was not supported until 8.0.
 The JSON datatype was also not available until version 5.7.8 so any 5.7 version before this will not work with the JSON type in the db.
@@ -23,9 +23,9 @@ Create User:
     When the user is created the entered password is salted and hashed using BCrypt and the resulting hash is stored into the database.
     Upon successful user creation you will be routed back to the home page to login.
 Crew:
-    Contains a crew search bar the will search any entered string and return results where that string matches any portion of a crew members name.
+    Contains a crew search bar that will search any entered string and return results where that string matches any portion of a crew members name.
 DisplayCrew:
-    Display of returned information from crew member search.  Clicking on Crew ID in the left column will load additional information about crew member.
+    Display of returned information from crew member search.  Clicking on Crew ID in the left column will load additional information about the crew member.
 DisplayCrewMember:
     Displays additional information about what role a crew member had in the movie and information pertinent to that role i.e. Character name.
 Trailer:
