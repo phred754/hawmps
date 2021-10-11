@@ -5,16 +5,26 @@ import { BootstrapVue } from 'bootstrap-vue'
 
 import Home from './components/Home'
 import Crew from './components/Crew'
+import About from './components/About'
+import Trailer from './components/Trailer'
 import DisplayCrew from './components/DisplayCrew'
+import DisplayCrewMember from './components/DisplayCrewMember'
+import CreateUser from './components/CreateUser'
+import Footer from './components/Footer'
 
 // import passport from 'passport'
 
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/Home', component: Home },
-  { path: '/Crew', component: Crew },
-  { path: '/DisplayCrew', component: DisplayCrew }
+  { path: '/Home', name:"Home", component: Home },
+  { path: '/Crew', name:"Crew", component: Crew },
+  { path: '/About', name:"About", component: About },
+  { path: '/Trailer', name:"Trailer", component: Trailer },
+  { path: '/DisplayCrew', name:"DisplayCrew", component: DisplayCrew },
+  { path: '/DisplayCrewMember', name:"DisplayCrewMember", component: DisplayCrewMember, props:true },
+  { path: '/CreateUser', name:"CreateUser", component: CreateUser },
+  { path: '/Footer', name:"Footer", component: Footer },
 ]
 
 const router = new VueRouter({

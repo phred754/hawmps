@@ -1,38 +1,44 @@
 <template>
     <div class="crew">
         <Navbar />
-        <h1>Crew Search</h1>
-        <form>
-            <input type="text" v-model="searchCriteria" v-if="!showCrew">
-            <button type="button" @click='search()' class="btn btn-danger" v-if="!showCrew">Search</button>
-            <button type="button" @click='resetSearch()' class="btn btn-danger" v-if="showCrew">Search Again</button>
-        </form>
-        <DisplayCrew v-bind:searchCriteria="searchCriteria" v-if="showCrew"/>
+        <h1>Crew</h1>
+        <div class="row d-flex justify-content-center flex-nowrap">
+            <form>
+                <input type="text"  v-model="searchCriteria" style="margin-right: 10px">
+                <button type="button" @click='search()' class="btn btn-danger">Search</button>
+            </form>
+        </div>
+        <DisplayCrew v-bind:searchCriteria="searchCriteria" v-if="showCrew" :key="componentKey"/>
+        <Footer />
     </div>
 </template>
 
 <script>
     import DisplayCrew from './DisplayCrew.vue'
     import Navbar from './Navbar.vue'
+    import Footer from './Footer.vue'
 
     export default {
         name: 'Crew',
         components: {
             Navbar,
-            DisplayCrew
+            DisplayCrew,
+            Footer
         },
         data(){
             return {
                 searchCriteria: '',
-                showCrew: false
+                showCrew: false,
+                componentKey: 0
             }
         },
         methods: {
             search() {
                 this.showCrew = true
+                this.forceRerender()
             },
-            resetSearch() {
-                this.showCrew = false
+            forceRerender(){
+                this.componentKey += 1;
             }
         }
     }
